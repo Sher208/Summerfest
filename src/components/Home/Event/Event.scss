@@ -1,0 +1,32 @@
+$desktop: 1000px;
+
+@mixin desktop{
+    @media (max-width: #{$desktop}){
+        @content;
+    }
+}
+
+.eventContainer{
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+
+    .event{
+        background-color: grey;
+        flex: 1;
+        height: 300px;
+        padding: 4rem;
+        cursor: pointer;
+
+        &:hover{
+            box-shadow: 10px 5px 20px rgba(124, 107, 107, 0.6) inset;
+        }
+    }
+
+    @include desktop{
+        flex-direction: column;
+    }
+
+}
+

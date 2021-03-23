@@ -5,43 +5,30 @@ import './Navbar.scss';
 
 const Navbar = () => {
 
-    const [click, setClick] = useState(false);
-    const [button, setButton] = useState(true);
+    const [close, setClose] = useState(true);
 
-    const handleClick = () => setClick(!click);
-    const closeMobileMenu = () => setClick(false);
 
+    const closeMenu = () => setClose(true);
+    const openMenu = () => setClose(false);
 
     return (
         <Fragment>
-            <div className="navbar">
-                <div className="navbar-container">
-                    <Link to='/' className='navbar-logo'>
-                        Hover
-                    </Link>
-                    <div className='menu-icon' onClick={handleClick}>
-                        <i className={click ? 'fas fa-times': 'fas fa-bars'}/>
+            <div class="slidingNavbar">
+                <div class={`slidingContainer ${close ? "": "active"}`}>
+                    <div className='closeBtn' onClick={closeMenu}>
+                        <i className='fas fa-times'/>
                     </div>
-                    <ul className={click ? 'nav-menu active': 'nav-menu'}>
-                        <li className='nav-item'>
-                            <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-                                Home
-                            </Link>
-                        </li>
-                        <li className='nav-item'>
-                            <Link to='/services' className='nav-links' onClick={closeMobileMenu}>
-                                Events
-                            </Link>
-                        </li>
-                        <li className='nav-item'>
-                            <Link to='/products' className='nav-links' onClick={closeMobileMenu}>
-                                Contact
-                            </Link>
-                        </li>
-                    </ul>
+                    <Link to='/' className='nav-links' onClick={closeMenu} >
+                        About
+                    </Link>
+                    <Link to='/competition' className='nav-links' onClick={closeMenu}>
+                        Competitions
+                    </Link>
+                </div>
+                <div class={`openBtn ${close ? "": "activeOpen"}`} onClick={openMenu}>
+                    <i className='fas fa-bars'/>
                 </div>
             </div>
-
         </Fragment>
     )
 }
