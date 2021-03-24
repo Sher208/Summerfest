@@ -7,9 +7,7 @@ const About = () => {
             <div class="about">
                     <h1  class="text-center">ABOUT US</h1>
                     <p class="text-center mg-top mg-bottom">
-                        Manipal The Talk Network (MTTN) is a student-run media organization spread across nine colleges in the university town of Manipal (KA).
-                        MTTN is a family committed to depicting the spirit of Manipal in all its grandeur. We’re a team of about 150 spirited individuals spread across three main departments, 
-                        namely Writing, Photography and Public Relations. We capture stories of Manipal through our words, and our lenses.
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                     </p>
             </div>
         </div>

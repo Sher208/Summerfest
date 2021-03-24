@@ -15,7 +15,7 @@ const Footer = () => {
                 <a href="#"><i className="fa fa-youtube"></i></a>
             </div>
             <div className="footer-company-name">
-                <p>Developed by <span>MTTN</span> </p>
+                <p>Developed by <span>Thilak</span> </p>
             </div>
             
         </footer>

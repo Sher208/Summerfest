@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Navbar from './components/layout/Navbar';
+import Navbar from './components/layout/Navbar/Navbar';
 import Home from './components/Home/Home';
 import Competition from './components/Competition/Competition';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
