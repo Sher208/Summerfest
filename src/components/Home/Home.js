@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import Landing from './Landing/Landing';
 import About from './About/About';
 import Event from './Event/Event';
-import Footer from '../layout/Footer/Footer';
+import Footer from '../Layout/Footer/Footer';
 import './Home.scss';
 
 const Home = () => {

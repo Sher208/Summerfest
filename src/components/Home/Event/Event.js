@@ -1,20 +1,20 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import EventItem from './EventItem';
-import Modal from '../../layout/Modal/Modal';
+import {connect} from 'react-redux'
+import Modal from '../../Layout/Modal/Modal';
 import Prizes from '../Prizes/Prizes';
+import {loadCompetitions} from '../../../actions/competition';
 import './Event.scss';
 
 
 
-const Event = () => {
+const Event = ({loadCompetitions, competitions, loading}) => {
 
     const [show, setShow] = useState(false);
 
-    const events = [
-        { "id": 1, "name": "Photography", "desc": "Submit to us your best captured moments that you think are worth sharing. Maximum of two entries per individual." },
-        { "id": 2, "name": "Writing", "desc": "Rework how your favourite writer concluded one of their pieces or weave a story around photo prompts. Maximum of two entries per individual." },
-        { "id": 3, "name": "Art", "desc": "Send us your best artworks and/or designs that capture your creativity to the fullest. Maximum of three entries per contestant will be accepted." }
-    ];
+    useEffect(() => {
+        loadCompetitions()
+      }, [loadCompetitions])
 
     const clickModal = () => {
         setShow(!show)
@@ -26,14 +26,29 @@ const Event = () => {
 
     return(
         <Fragment>
-            <Modal show={show} closed={closeModal}>
-                <Prizes />
-            </Modal>
-            <div className="eventContainer">
-                {events.map(event => <EventItem id={event.id} name={event.name} desc={event.desc} clickModal={clickModal}/>)}
-            </div>
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <Fragment>
+                    <Modal show={show} closed={closeModal}>
+                        <Prizes />
+                    </Modal>
+                    <div className="eventContainer">
+                        {competitions.map(event => <EventItem key={event.id} name={event.name} desc={event.desc} clickModal={clickModal}/>)}
+                    </div>
+                </Fragment>
+            )}
         </Fragment>    
     )
 }
 
-export default Event;
+const mapStateToProps = (state) => ({
+    competitions: state.getCompetition.competitions,
+    loading: state.getCompetition.loading
+  });
+  
+  const mapDispatchToProps = dispatch => ({
+    loadCompetitions: () => dispatch(loadCompetitions()),
+  });
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Event);

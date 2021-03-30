@@ -1,12 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {connect, Provider} from 'react-redux';
+import { bindActionCreators } from 'redux'
+import configureStore from './store';
+import {loadCompetitions} from './actions/competition'
 import './index.css';
 import App from './App';
 
+const store = configureStore();
+
+// const mapStateToProps = (state) => ({
+//   competition: state.competitionReducer
+// });
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     dispatch,
+//     ...bindActionCreators({
+//       loadCompetitions
+//     }, dispatch),
+//   }
+// };
+
+// const App = connect(mapStateToProps,mapDispatchToProps)(App);
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <App/>
+  </Provider>,
   document.getElementById('root')
 );
 
