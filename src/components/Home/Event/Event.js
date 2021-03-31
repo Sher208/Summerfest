@@ -30,11 +30,11 @@ const Event = ({loadCompetitions, competitions, loading}) => {
                 <p>Loading...</p>
             ) : (
                 <Fragment>
-                    <Modal show={show} closed={closeModal}>
+                    {/* <Modal show={show} closed={closeModal}>
                         <Prizes />
-                    </Modal>
+                    </Modal> */}
                     <div className="eventContainer">
-                        {competitions.map(event => <EventItem key={event.id} name={event.name} desc={event.desc} clickModal={clickModal}/>)}
+                        {competitions.map(event => <EventItem key={event.id} name={event.name} desc={event.desc} id={event._id} clickModal={clickModal}/>)}
                     </div>
                 </Fragment>
             )}
