@@ -3,7 +3,7 @@ import EventItem from './EventItem';
 import {connect} from 'react-redux'
 import Modal from '../../Layout/Modal/Modal';
 import Prizes from '../Prizes/Prizes';
-import {loadCompetitions} from '../../../actions/competition';
+import {loadCompetitions, resetCompetitionAndError} from '../../../actions/competition';
 import './Event.scss';
 
 
@@ -13,8 +13,12 @@ const Event = ({loadCompetitions, competitions, loading}) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
-        loadCompetitions()
-      }, [loadCompetitions])
+        if(competitions.length === 0){
+            loadCompetitions();
+        }
+
+      }, [loadCompetitions, competitions, loading])
+
 
     const clickModal = () => {
         setShow(!show)
@@ -49,6 +53,7 @@ const mapStateToProps = (state) => ({
   
   const mapDispatchToProps = dispatch => ({
     loadCompetitions: () => dispatch(loadCompetitions()),
+    resetCompetitionAndError: () => dispatch(resetCompetitionAndError()),
   });
   
   export default connect(mapStateToProps, mapDispatchToProps)(Event);

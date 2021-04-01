@@ -1,15 +1,30 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {loadCompetitionById} from '../../actions/competition';
+import { Redirect } from 'react-router';
+import {loadCompetitionById, resetCompetitionAndError} from '../../actions/competition'
 
-const EventPage = ({competition,match,loadCompetitionById}) => {
+const EventPage = ({competition,match,loadCompetitionById, error, resetCompetitionAndError}) => {
+
+    const [errorState, setErrorState] = useState(false);
 
     useEffect(() => {
-        loadCompetitionById(match.params.id)
-      }, [loadCompetitionById, match.params.id])
+        if(error){
+            setErrorState(true);
+        }else{
+            setErrorState(false);
+            loadCompetitionById(match.params.id);
+        }
+        return () => {
+            resetCompetitionAndError();
+        }
+    }, [loadCompetitionById, match.params.id, error, resetCompetitionAndError])
+
 
     return (
         <>
+        {
+            errorState ? (<Redirect to='/err' />) : (null)
+        }
         {
             competition ? (
             <div>
@@ -25,11 +40,13 @@ const EventPage = ({competition,match,loadCompetitionById}) => {
 }
 
 const mapStateToProps = (state) => ({
-    competition: state.getCompetition.competition
+    competition: state.getCompetition.competition,
+    error: state.getCompetition.error
 });
   
 const mapDispatchToProps = dispatch => ({
-    loadCompetitionById: id => dispatch(loadCompetitionById(id))
+    loadCompetitionById: id => dispatch(loadCompetitionById(id)),
+    resetCompetitionAndError: () => dispatch(resetCompetitionAndError()),
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(EventPage);

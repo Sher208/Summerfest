@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-const { Mongoose } = require('mongoose');
+const mongoose = require('mongoose');
+const checkObjectId = require('../../utils/middleware/checkId');
 const Competition = require('../../models/Competition');
 
 // @route POST api/competition
@@ -45,7 +46,6 @@ router.post('/', [
 router.get('/', async (req, res)=>{
     try{
         const competition = await Competition.find();
-        console.log(competition);
         res.status(200).json(competition);
     }catch(e){
         console.log(e.message);
@@ -53,7 +53,7 @@ router.get('/', async (req, res)=>{
     }
 });
 
-router.get('/:id', async function(req, res){
+router.get('/:id', checkObjectId('id'), async function(req, res){
     try{
         const competition = await Competition.findById(req.params.id);
         if(!competition){
@@ -61,7 +61,7 @@ router.get('/:id', async function(req, res){
         }
         res.json(competition);
     }catch(err){
-        res.status(500).send('Server error');
+        res.status(404).send('Server error');
     }
 });
 
