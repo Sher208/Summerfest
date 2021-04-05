@@ -36,10 +36,15 @@ const competitionReducer = (state = initialState, action) => {
         error: payload,
         loading: false
       };
-    case success(COMPETITION.RESET):
+    case success(COMPETITION.RESET_COMPETITION):
       return {
           ...state,
           competition: null,
+          loading:false
+      };
+    case success(COMPETITION.RESET_ERROR):
+      return {
+          ...state,
           error: null,
           loading:false
       };

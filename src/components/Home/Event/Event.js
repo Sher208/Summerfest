@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import EventItem from './EventItem';
 import {connect} from 'react-redux'
-import {loadCompetitions, resetCompetitionAndError} from '../../../actions/competition';
+import {loadCompetitions} from '../../../actions/competition';
 import './Event.scss';
 
 
@@ -49,8 +49,7 @@ const mapStateToProps = (state) => ({
   });
   
   const mapDispatchToProps = dispatch => ({
-    loadCompetitions: () => dispatch(loadCompetitions()),
-    resetCompetitionAndError: () => dispatch(resetCompetitionAndError()),
+    loadCompetitions: () => dispatch(loadCompetitions())
   });
   
   export default connect(mapStateToProps, mapDispatchToProps)(Event);

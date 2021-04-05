@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router';
-import {loadCompetitionById, resetCompetitionAndError} from '../../actions/competition'
+import {loadCompetitionById, resetCompetition} from '../../actions/competition'
 
-const EventPage = ({competition,match,loadCompetitionById, error, resetCompetitionAndError}) => {
+const EventPage = ({competition,match,loadCompetitionById, error, resetCompetition}) => {
 
     const [errorState, setErrorState] = useState(false);
 
@@ -15,9 +15,9 @@ const EventPage = ({competition,match,loadCompetitionById, error, resetCompetiti
             loadCompetitionById(match.params.id);
         }
         return () => {
-            resetCompetitionAndError();
+            resetCompetition();
         }
-    }, [loadCompetitionById, match.params.id, error, resetCompetitionAndError])
+    }, [loadCompetitionById, match.params.id, error])
         
 
     return (
@@ -48,7 +48,7 @@ const mapStateToProps = (state) => ({
   
 const mapDispatchToProps = dispatch => ({
     loadCompetitionById: id => dispatch(loadCompetitionById(id)),
-    resetCompetitionAndError: () => dispatch(resetCompetitionAndError()),
+    resetCompetition: () => dispatch(resetCompetition()),
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(EventPage);

@@ -8,6 +8,10 @@ export const loadCompetitionById = (id) => {
     return {type: COMPETITION.GET_ONE_COMPETITION, payload: id};
 };
     
-export const resetCompetitionAndError = () => ({
-    type: COMPETITION.RESET
+export const resetCompetition = () => ({
+    type: COMPETITION.RESET_COMPETITION
+});
+
+export const resetError = () => ({
+    type: COMPETITION.RESET_ERROR
 });

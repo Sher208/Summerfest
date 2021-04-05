@@ -35,9 +35,16 @@ function* getSingleCompetitionSaga(action){
     }
 }
 
-function* resetCompetitionAndError(){
+function* resetCompetition(){
     yield put({
-        type: success(COMPETITION.RESET), 
+        type: success(COMPETITION.RESET_COMPETITION), 
+        payload: null
+    });
+}
+
+function* resetError(){
+    yield put({
+        type: success(COMPETITION.RESET_ERROR), 
         payload: null
     });
 }
@@ -50,6 +57,10 @@ export function* watchGetSingleCompetition(){
     yield takeEvery(COMPETITION.GET_ONE_COMPETITION, getSingleCompetitionSaga);
 }
 
-export function* watchResetCompetitionAndError(){
-    yield takeEvery(COMPETITION.RESET, resetCompetitionAndError);
+export function* watchResetCompetition(){
+    yield takeEvery(COMPETITION.RESET_COMPETITION, resetCompetition);
+}
+
+export function* watchResetError(){
+    yield takeEvery(COMPETITION.RESET_ERROR, resetError);
 }
