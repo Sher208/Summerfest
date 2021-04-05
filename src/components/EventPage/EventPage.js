@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router';
 import {loadCompetitionById, resetCompetition} from '../../actions/competition';
+import Button from '../Layout/Button/Button';
 import './EventPage.scss';
 
 const EventPage = ({competition,match,loadCompetitionById, error, resetCompetition}) => {
@@ -32,6 +33,9 @@ const EventPage = ({competition,match,loadCompetitionById, error, resetCompetiti
                 <div className="container">
                     <h1 className="text-center mg-bottom">{competition.name}</h1>
                     <p className="text-center lead">{competition.desc}</p>
+                    <div class="button-space">
+                            <Button>Register for {competition.name}</Button>
+                    </div>
                 </div>
             </div>
             ):
