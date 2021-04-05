@@ -1,12 +1,13 @@
 import {COMPETITION} from '../constants/constant';
 import {put, takeEvery} from 'redux-saga/effects';
+import {success, fail} from '../utils/constAppend';
 import axios from 'axios';
 
 function* getAllCompetitionSaga(){
     try{
         const res = yield axios.get('http://localhost:5000/api/competition/');
         yield put({
-            type: COMPETITION.LOAD_SUCCESS, 
+            type: success(COMPETITION.LOAD), 
             payload: res.data
         });
     }catch(err){
@@ -23,12 +24,12 @@ function* getSingleCompetitionSaga(action){
     try{
         const res = yield axios.get(`http://localhost:5000/api/competition/${id}`);
         yield put({
-            type: COMPETITION.GET_ONE_COMPETITION_SUCCESS, 
+            type: success(COMPETITION.GET_ONE_COMPETITION), 
             payload: res.data
         });
     }catch(err){
         yield put({
-            type:COMPETITION.GET_ONE_COMPETITION_FAIL,
+            type:fail(COMPETITION.GET_ONE_COMPETITION),
             payload: { msg: err.response.data.msg, status: err.response.status },
           });
     }
@@ -36,7 +37,7 @@ function* getSingleCompetitionSaga(action){
 
 function* resetCompetitionAndError(){
     yield put({
-        type: COMPETITION.RESET_SUCCESS, 
+        type: success(COMPETITION.RESET), 
         payload: null
     });
 }

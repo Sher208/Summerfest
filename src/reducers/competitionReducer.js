@@ -1,3 +1,4 @@
+import {success, fail} from '../utils/constAppend';
 import { COMPETITION } from '../constants/constant';
 
 const initialState = {
@@ -10,37 +11,37 @@ const initialState = {
 const competitionReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
-    case COMPETITION.LOAD_SUCCESS:
+    case success(COMPETITION.LOAD):
       return {
         ...state,
         competitions: payload,
         loading: false
       };
-    case COMPETITION.LOAD_FAIL:
+    case fail(COMPETITION.LOAD):
         return {
             ...state,
             competition: null,
             error: payload,
             loading: false
     };
-    case COMPETITION.GET_ONE_COMPETITION_SUCCESS:
+    case success(COMPETITION.GET_ONE_COMPETITION):
       return {
         ...state,
         competition: payload,
         loading: false
       };
-    case COMPETITION.GET_ONE_COMPETITION_FAIL:
+    case fail(COMPETITION.GET_ONE_COMPETITION):
       return {
         ...state,
         error: payload,
         loading: false
       };
-    case COMPETITION.RESET_SUCCESS:
+    case success(COMPETITION.RESET):
       return {
           ...state,
           competition: null,
           error: null,
-          loading: true
+          loading:false
       };
     default:
       return state;

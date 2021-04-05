@@ -18,7 +18,7 @@ const EventPage = ({competition,match,loadCompetitionById, error, resetCompetiti
             resetCompetitionAndError();
         }
     }, [loadCompetitionById, match.params.id, error, resetCompetitionAndError])
-
+        
 
     return (
         <>
@@ -28,11 +28,13 @@ const EventPage = ({competition,match,loadCompetitionById, error, resetCompetiti
         {
             competition ? (
             <div>
-                <h1 class="text-center">{competition.name}</h1>
-                <p class="text-center">{competition.desc}</p>
+                <h1 className="text-center">{competition.name}</h1>
+                <p className="text-center">{competition.desc}</p>
             </div>
             ):
-            (<p>Loading....</p>)
+            (
+                <p>Loading....</p>
+            )
         }
            
         </>

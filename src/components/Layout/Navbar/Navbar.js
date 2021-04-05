@@ -20,9 +20,6 @@ const Navbar = () => {
                     <Link to='/' className='nav-links' onClick={closeMenu} >
                         About
                     </Link>
-                    <Link to='/competition' className='nav-links' onClick={closeMenu}>
-                        Competitions
-                    </Link>
                 </div>
                 <div className={`openBtn ${close ? "": "activeOpen"}`} onClick={openMenu}>
                     <i className='fas fa-bars'/>

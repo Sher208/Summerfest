@@ -1,8 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import EventItem from './EventItem';
 import {connect} from 'react-redux'
-import Modal from '../../Layout/Modal/Modal';
-import Prizes from '../Prizes/Prizes';
 import {loadCompetitions, resetCompetitionAndError} from '../../../actions/competition';
 import './Event.scss';
 
@@ -16,7 +14,6 @@ const Event = ({loadCompetitions, competitions, loading}) => {
         if(competitions.length === 0){
             loadCompetitions();
         }
-
       }, [loadCompetitions, competitions, loading])
 
 
@@ -38,7 +35,7 @@ const Event = ({loadCompetitions, competitions, loading}) => {
                         <Prizes />
                     </Modal> */}
                     <div className="eventContainer">
-                        {competitions.map(event => <EventItem key={event.id} name={event.name} desc={event.desc} id={event._id} clickModal={clickModal}/>)}
+                        {competitions.map(event => <EventItem key={event._id} id={event._id} name={event.name} desc={event.desc} clickModal={clickModal}/>)}
                     </div>
                 </Fragment>
             )}
