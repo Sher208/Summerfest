@@ -61,7 +61,7 @@ router.get('/:id', checkObjectId('id'), async function(req, res){
         }
         res.json(competition);
     }catch(err){
-        res.status(404).send('Server error');
+        res.status(500).send('Server error');
     }
 });
 

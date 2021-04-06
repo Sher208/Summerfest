@@ -18,6 +18,10 @@ function* getAllCompetitionSaga(){
     }
 }
 
+export function* watchGetAllCompetitionSaga(){
+    yield takeEvery(COMPETITION.LOAD, getAllCompetitionSaga);
+}
+
 function* getSingleCompetitionSaga(action){
     console.log(action);
     const id = action.payload;
@@ -35,32 +39,29 @@ function* getSingleCompetitionSaga(action){
     }
 }
 
-function* resetCompetition(){
+export function* watchGetSingleCompetitionSaga(){
+    yield takeEvery(COMPETITION.GET_ONE_COMPETITION, getSingleCompetitionSaga);
+}
+
+function* resetCompetitionSaga(){
     yield put({
         type: success(COMPETITION.RESET_COMPETITION), 
         payload: null
     });
 }
 
-function* resetError(){
+export function* watchResetCompetitionSaga(){
+    yield takeEvery(COMPETITION.RESET_COMPETITION, resetCompetitionSaga);
+}
+
+function* resetErrorSaga(){
     yield put({
         type: success(COMPETITION.RESET_ERROR), 
         payload: null
     });
 }
 
-export function* watchGetAllCompetition(){
-    yield takeEvery(COMPETITION.LOAD, getAllCompetitionSaga);
-}
 
-export function* watchGetSingleCompetition(){
-    yield takeEvery(COMPETITION.GET_ONE_COMPETITION, getSingleCompetitionSaga);
-}
-
-export function* watchResetCompetition(){
-    yield takeEvery(COMPETITION.RESET_COMPETITION, resetCompetition);
-}
-
-export function* watchResetError(){
-    yield takeEvery(COMPETITION.RESET_ERROR, resetError);
+export function* watchResetErrorSaga(){
+    yield takeEvery(COMPETITION.RESET_ERROR, resetErrorSaga);
 }

@@ -9,12 +9,13 @@ import './Event.scss';
 const Event = ({loadCompetitions, competitions, loading}) => {
 
     const [show, setShow] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         if(competitions.length === 0){
             loadCompetitions();
         }
-      }, [loadCompetitions, competitions, loading])
+      }, [loadCompetitions, competitions])
 
 
     const clickModal = () => {

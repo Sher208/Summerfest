@@ -1,0 +1,15 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+
+    .seats_selection{
+        input[name="seats"]{
+            margin: 4rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+    }
+}
