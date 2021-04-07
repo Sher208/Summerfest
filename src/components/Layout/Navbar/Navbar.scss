@@ -8,12 +8,12 @@ $desktop: 840px;
 
 
 .slidingContainer{
-    height: 100%;
     width: 0;
     position: absolute;
     z-index: 9999;
     top: 0;
     left: 0;
+    bottom: 0;
     background-color: rgba(0,0,0,0.8);
     overflow-x: hidden;
     transition: 0.5s;
@@ -26,6 +26,7 @@ $desktop: 840px;
         color: rgba(255,255,255,1);
         display: block;
         transition: 0.3s;
+        cursor: pointer;
 
         &:hover{
             color: rgb(99, 99, 99);

@@ -12,4 +12,13 @@
             text-align: center;
         }
     }
+
+    .Seats{
+        display: flex;
+        flex-wrap: wrap;
+
+        span{
+            padding: 2rem;
+        }
+    }
 }

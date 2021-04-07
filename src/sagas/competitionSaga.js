@@ -23,7 +23,6 @@ export function* watchGetAllCompetitionSaga(){
 }
 
 function* getSingleCompetitionSaga(action){
-    console.log(action);
     const id = action.payload;
     try{
         const res = yield axios.get(`http://localhost:5000/api/competition/${id}`);

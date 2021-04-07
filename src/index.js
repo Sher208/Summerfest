@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import {connect, Provider} from 'react-redux';
 import { bindActionCreators } from 'redux'
 import configureStore from './store';
-import {loadCompetitions} from './actions/competition'
+import {loadCompetitions} from './actions/competition';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 import './index.css';
 import App from './App';
 
@@ -26,7 +27,9 @@ const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <App/>
+    <ErrorBoundary>
+      <App/>
+    </ErrorBoundary>
   </Provider>,
   document.getElementById('root')
 );
