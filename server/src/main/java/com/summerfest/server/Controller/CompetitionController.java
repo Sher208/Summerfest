@@ -3,6 +3,7 @@ package com.summerfest.server.Controller;
 import javax.validation.Valid;
 
 import com.summerfest.server.Model.Competition;
+import com.summerfest.server.Model.Request.CompetitionRequest;
 import com.summerfest.server.Service.CompetitionService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class CompetitionController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> addCompetition(@Valid @RequestBody Competition competition){
+    public ResponseEntity<Object> addCompetition(@Valid @RequestBody CompetitionRequest competition){
         return competitionService.addCompetition(competition);
     }
 }

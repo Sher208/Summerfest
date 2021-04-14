@@ -11,11 +11,11 @@ public class Competition {
     private Integer id;
 
     @NotBlank(message = "Name is mandatory")
-    @Size(min = 3, max = 30, message = "Overflow or underflow name")
+    @Size(min = 3, max = 30, message = "Name criteria not met")
     private String name;
 
     @NotBlank(message = "Description is mandatory")
-    @Size(min = 5, max = 100, message = "Overflow or underflow description")
+    @Size(min = 5, max = 100, message = "Description criteria not met")
     private String description;
 
     public Competition(){}

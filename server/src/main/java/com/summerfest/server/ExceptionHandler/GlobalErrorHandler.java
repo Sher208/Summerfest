@@ -28,9 +28,15 @@ public class GlobalErrorHandler{
         return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ResouceAlreadyExistsException.class)
+    public ResponseEntity<Object> handleResourceAlreadyException(ResouceAlreadyExistsException ex){
+        ErrorModel err = new ErrorModel(HttpStatus.CONFLICT, ex.getMessage());
+        return new ResponseEntity<>(err, HttpStatus.CONFLICT);
+    }
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Object> methodArgumentNotValidException(MethodArgumentNotValidException ex){
+    public ResponseEntity<Object> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
         List<String> details = new ArrayList<String>();
         details = ex.getBindingResult()
                         .getFieldErrors()
@@ -41,8 +47,14 @@ public class GlobalErrorHandler{
         return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(OperationFailed.class)
+    public ResponseEntity<Object> handleOperationFailed(OperationFailed ex){
+        ErrorModel err = new ErrorModel(HttpStatus.BAD_REQUEST, ex.getMessage());
+        return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
+    public ResponseEntity<Object> handleAll(Exception ex, HttpStatus status, WebRequest request) {
 		ErrorModel err = new ErrorModel(HttpStatus.BAD_GATEWAY, ex.getMessage());
 		return new ResponseEntity<>(err, HttpStatus.BAD_GATEWAY);
 	}

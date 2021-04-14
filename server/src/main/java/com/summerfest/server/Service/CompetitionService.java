@@ -1,10 +1,14 @@
 package com.summerfest.server.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import com.summerfest.server.ExceptionHandler.OperationFailed;
+import com.summerfest.server.ExceptionHandler.ResouceAlreadyExistsException;
 import com.summerfest.server.ExceptionHandler.ResouceNotFoundException;
 import com.summerfest.server.Model.Competition;
+import com.summerfest.server.Model.Request.CompetitionRequest;
 import com.summerfest.server.Respository.CompetitionRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +36,17 @@ public class CompetitionService {
         return new ResponseEntity<Object>(competition, HttpStatus.OK);
     }
 
-    public ResponseEntity<Object> addCompetition(Competition competition){
-        Competition addedCompetition = competitionRepository.saveCompetition(competition);
-        return new ResponseEntity<Object>(addedCompetition, HttpStatus.OK);
+    public ResponseEntity<Object> addCompetition(CompetitionRequest competition){
+        HashMap<String, String> map = new HashMap<>();
+        if(competitionRepository.checkNameExists(competition.getName())){
+            throw new ResouceAlreadyExistsException("Competition with Name:"+competition.getName()+" already present");
+        }
+        Integer check = competitionRepository.saveCompetition(competition);
+        if(check==0){
+            throw new OperationFailed("Record could not be inserted");
+        }
+        map.put("Record inserted", check.toString());
+        return new ResponseEntity<Object>(map, HttpStatus.OK);
     }
 
 }

@@ -3,6 +3,7 @@ package com.summerfest.server.Respository;
 import java.util.List;
 
 import com.summerfest.server.Model.Competition;
+import com.summerfest.server.Model.Request.CompetitionRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,8 +12,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CompetitionRepositoryImp implements CompetitionRepository{
 
-    private static final String INSERT_COMPETITION_QUERY="INSERT INTO COMPETITION(id,name,description) values(?,?,?)";
+    private static final String INSERT_COMPETITION_QUERY="INSERT INTO COMPETITION(name,description) values(?,?)";
     private static final String GET_COMPETITION_BY_ID_QUERY="SELECT * FROM COMPETITION where ID=?";
+    private static final String CHECK_NAME_EXISTS_QUERY="SELECT COUNT(*) FROM COMPETITION where NAME=?";
     private static final String GET_ALL_COMPETITION="SELECT * FROM COMPETITION";
 
     @Autowired
@@ -38,9 +40,18 @@ public class CompetitionRepositoryImp implements CompetitionRepository{
     }
 
     @Override
-    public Competition saveCompetition(Competition competition) {
-        jdbcTemplate.update(INSERT_COMPETITION_QUERY, competition.getId(), competition.getName(), competition.getDescription());
-        return competition;
+    public int saveCompetition(CompetitionRequest competition) {
+        int inserted = jdbcTemplate.update(INSERT_COMPETITION_QUERY, competition.getName(), competition.getDescription());
+        return inserted;
     }
     
+    @Override
+    public Boolean checkNameExists(String Name){
+        int count = jdbcTemplate.queryForObject(CHECK_NAME_EXISTS_QUERY, Integer.class, Name);
+        if(count==1){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
