@@ -45,7 +45,27 @@ public class CompetitionService {
         if(check==0){
             throw new OperationFailed("Record could not be inserted");
         }
-        map.put("Record inserted", check.toString());
+        map.put("message", "Record added");
+        return new ResponseEntity<Object>(map, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Object> updateCompetitionById(CompetitionRequest competition, Integer id){
+        HashMap<String, String> map = new HashMap<>();
+        Integer check = competitionRepository.updateCompetition(competition, id);
+        if(check==0){
+            throw new OperationFailed("Updating Failed");
+        }
+        map.put("message", "Record updated");
+        return new ResponseEntity<Object>(map, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Object> deleteCompetitionById(Integer id){
+        HashMap<String, String> map = new HashMap<>();
+        Integer check = competitionRepository.deleteCompetitionById(id);
+        if(check==0){
+            throw new OperationFailed("Could not be deleted");
+        }
+        map.put("message", "Record deleted");
         return new ResponseEntity<Object>(map, HttpStatus.OK);
     }
 

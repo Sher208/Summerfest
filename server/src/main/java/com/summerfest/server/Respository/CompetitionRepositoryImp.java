@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 public class CompetitionRepositoryImp implements CompetitionRepository{
 
     private static final String INSERT_COMPETITION_QUERY="INSERT INTO COMPETITION(name,description) values(?,?)";
+    private static final String UPDATE_COMPETITION_BY_ID_QUERY="UPDATE COMPETITION SET NAME=?, DESCRIPTION=? WHERE ID=?";
+    private static final String DELETE_COMPETITION_BY_ID_QUERY="DELETE FROM COMPETITION WHERE ID=?";
     private static final String GET_COMPETITION_BY_ID_QUERY="SELECT * FROM COMPETITION where ID=?";
     private static final String CHECK_NAME_EXISTS_QUERY="SELECT COUNT(*) FROM COMPETITION where NAME=?";
     private static final String GET_ALL_COMPETITION="SELECT * FROM COMPETITION";
@@ -40,7 +42,7 @@ public class CompetitionRepositoryImp implements CompetitionRepository{
     }
 
     @Override
-    public int saveCompetition(CompetitionRequest competition) {
+    public Integer saveCompetition(CompetitionRequest competition) {
         int inserted = jdbcTemplate.update(INSERT_COMPETITION_QUERY, competition.getName(), competition.getDescription());
         return inserted;
     }
@@ -53,5 +55,17 @@ public class CompetitionRepositoryImp implements CompetitionRepository{
         }else{
             return false;
         }
+    }
+
+    @Override
+    public Integer updateCompetition(CompetitionRequest competition, Integer id){
+        int updated = jdbcTemplate.update(UPDATE_COMPETITION_BY_ID_QUERY, competition.getName(), competition.getDescription(), id);
+        return updated;
+    }
+
+    @Override
+    public Integer deleteCompetitionById(Integer id){
+        int delete = jdbcTemplate.update(DELETE_COMPETITION_BY_ID_QUERY, id);
+        return delete;
     }
 }
