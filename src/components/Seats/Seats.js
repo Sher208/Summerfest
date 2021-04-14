@@ -17,6 +17,7 @@ function reducer(state, action) {
 }
 
 function generateSeats(number){
+  console.log("hello----->eeat");
   for (var i = 0; i < 100000000; i++) {};
   console.log("Hello");
   let li = []
