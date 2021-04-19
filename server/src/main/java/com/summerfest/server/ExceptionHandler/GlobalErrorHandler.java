@@ -50,6 +50,12 @@ public class GlobalErrorHandler{
         return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(InvalidCredentialException.class)
+    public ResponseEntity<Object> handleInvalidCredentialException(InvalidCredentialException ex) {
+		ErrorModel err = new ErrorModel(HttpStatus.BAD_REQUEST, ex.getMessage());
+		return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+	}
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleAll(Exception ex, HttpStatus status, WebRequest request) {
 		ErrorModel err = new ErrorModel(HttpStatus.BAD_GATEWAY, ex.getMessage());
