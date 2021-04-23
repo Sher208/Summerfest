@@ -1,0 +1,42 @@
+.container-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4rem;
+    
+    .form{
+        width: 40%;
+
+        .form-group{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            .form-feild{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 2rem;
+                label{
+                    width: 100%;
+                    text-align: left;
+                    font-size: 1.5rem;
+                    color: rgb(56, 56, 56);
+                    margin-bottom: 0.5rem;
+                }
+
+                input{
+                    border: 1px solid grey;
+                    border-radius: 3px;
+                    font-size: 1.5rem;
+                    padding: 0.5rem;
+                }
+            }
+        }
+    }
+
+    
+}

@@ -5,15 +5,15 @@ import axios from 'axios';
 
 function* getAllCompetitionSaga(){
     try{
-        const res = yield axios.get('http://localhost:5000/api/competition/');
+        const res = yield axios.get('/api/competitions/');
         yield put({
             type: success(COMPETITION.LOAD), 
             payload: res.data
         });
     }catch(err){
         yield put({
-            type: COMPETITION.LOAD_FAIL,
-            payload: { msg: err.response.data.msg, status: err.response.status },
+            type: fail(COMPETITION.LOAD),
+            payload: { msg: err.response.data.message, status: err.response.status },
           });
     }
 }
@@ -25,7 +25,7 @@ export function* watchGetAllCompetitionSaga(){
 function* getSingleCompetitionSaga(action){
     const id = action.payload;
     try{
-        const res = yield axios.get(`http://localhost:5000/api/competition/${id}`);
+        const res = yield axios.get(`/api/competitions/${id}`);
         yield put({
             type: success(COMPETITION.GET_ONE_COMPETITION), 
             payload: res.data
@@ -33,7 +33,7 @@ function* getSingleCompetitionSaga(action){
     }catch(err){
         yield put({
             type:fail(COMPETITION.GET_ONE_COMPETITION),
-            payload: { msg: err.response.data.msg, status: err.response.status },
+            payload: { msg: err.response.data.message, status: err.response.status },
           });
     }
 }

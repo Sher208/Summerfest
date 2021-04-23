@@ -12,7 +12,7 @@ app.use(cors())
 
 app.get('/', (req, res) => res.send('API running'));
 
-app.use('/api/competition', require('./routes/api/competition'));
+app.use('/api/competitions', require('./routes/api/competition'));
 
 app.listen(5000,function(){
     console.log('Server Started');

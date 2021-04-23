@@ -30,7 +30,7 @@ function generateSeats(number){
 const Seats = () => {
 
     const {loggedIn, setLoggedIn} = useContext(UserContext);
-    const {user, authenticated} = loggedIn;
+    const {id, name, email, authenticated} = loggedIn;
 
     const [confirmState, setConfirmState] = useState(0);
     const [state, dispatch] = useReducer(reducer, {count:0});
@@ -39,6 +39,8 @@ const Seats = () => {
 
     const handleClick = () => setConfirmState(state.count);
 
+    console.log(loggedIn);
+
     return (
         <>
         {/* {
@@ -46,7 +48,7 @@ const Seats = () => {
         } */}
             <h1 className="text-center">Register for Seats
             {
-              authenticated ? (<span>{' '}as {user}</span>): null
+              authenticated && (<span>{' '}as {name}</span>)
             }
             </h1>
             <div className="container">
@@ -55,7 +57,7 @@ const Seats = () => {
                         <input type="number" name="seats" value={state.count} onChange={(e) => dispatch({type: 'manual', value: e.target.value})}/>
                     <Button onClick={() => dispatch({type: 'increment'})}>+</Button>
                 </div>
-                <Button onClick={handleClick} disabled={!authenticated}>Confirm Seat</Button>
+                <Button onClick={handleClick} type="submit" disabled={!authenticated}>Confirm Seat</Button>
                 <div className="Seats">
                   {
                     memorizedValue.map(number => <span key={number} className="lead">{number}</span>)

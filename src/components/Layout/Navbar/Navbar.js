@@ -1,20 +1,23 @@
 import React, { Fragment, useState, useContext} from 'react';
 import {Link} from 'react-router-dom';
-import {UserContext} from '../../../App'
+import {UserContext} from '../../../App';
+import {connect} from 'react-redux';
+import {logout} from '../../../actions/auth';
 import './Navbar.scss';
 
-const Navbar = () => {
+const Navbar = ({logout}) => {
 
     const {loggedIn, setLoggedIn} = useContext(UserContext);
 
-    const {user, authenticated} = loggedIn;
+    const {id, name, email, authenticated} = loggedIn;
 
     const [close, setClose] = useState(true);
     const closeMenu = () => setClose(true);
     const openMenu = () => setClose(false);
 
-    const authenticateUser = () => {
-        setLoggedIn({...loggedIn, authenticated: !authenticated});
+    const logoutClick = () => {
+        setLoggedIn({id:'', name:'', email:'',authenticated: false});
+        logout();
         closeMenu();
     }
 
@@ -26,21 +29,37 @@ const Navbar = () => {
                         <div className='closeBtn' onClick={closeMenu}>
                             <i className='fas fa-times'/>
                         </div>
+                        {
+                            authenticated && (
+                                <div class="user-name">
+                                    <h1>{name}</h1>
+                                </div>
+                            )
+                        }
                         <Link to='/' className='nav-links' onClick={closeMenu} >
                             About
                         </Link>
-                        <Link to='/seats' className='nav-links' onClick={closeMenu} >
-                            Seats
-                        </Link>
                         {
                             authenticated ? (
-                                <div className="nav-links" onClick={authenticateUser}>
-                                    Logout <span>({user})</span>
-                                </div>
+                                <>
+                                    <Link to='/seats' className='nav-links' onClick={closeMenu} >
+                                        Seats
+                                    </Link>
+                                    <div className='nav-links' >
+                                        <a  href='/' onClick={logoutClick}>
+                                            <span> Logout</span>
+                                        </a>
+                                    </div>
+                                </>
                             ):(
-                                <div className="nav-links" onClick={authenticateUser}>
-                                    Login
-                                </div>
+                                <>
+                                    <Link to='/login' className='nav-links' onClick={closeMenu} >
+                                        Sign In
+                                    </Link>
+                                    <Link to='/register' className='nav-links' onClick={closeMenu} >
+                                        Register
+                                    </Link>
+                                </>    
                             )
                         }
                     </div>
@@ -53,4 +72,8 @@ const Navbar = () => {
     )
 }
 
-export default Navbar;
+const mapDispatchToProps = dispach => ({
+    logout: () => dispach(logout())
+});
+
+export default connect(null, mapDispatchToProps)(Navbar);

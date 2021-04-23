@@ -1,17 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Layout/Navbar/Navbar';
-import {Routes} from './Routes'
+import {Routes} from './Routes';
+import {connect} from 'react-redux';
+import setAuthToken from './utils/setAuthToken';
+import PrivateRoute from './components/Routing/PrivateRoute';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import './App.scss';
+import { loadUser } from './actions/auth';
 
 export const UserContext = React.createContext();
 
-function App() {
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+
+function App({isAuthenticated, userAuth, loadUser, loadingAuth, tokenAuth}) {
 
   const [loggedIn, setLoggedIn] = useState({
-    user: 'admin',
+    id: '',
+    name: '',
+    email: '',
     authenticated: false
   })
+
+  useEffect(() => {
+    console.log('Inside Use Effect');
+    if(tokenAuth){
+      loadUser();
+    }
+  }, [loadUser, tokenAuth]);
+
+  useEffect(() => {
+    if(userAuth != null){
+      setLoggedIn({
+        id: !loadingAuth ? userAuth.id:'',
+        name: !loadingAuth ? userAuth.name:'',
+        email: !loadingAuth ? userAuth.email:'',
+        authenticated: isAuthenticated
+      })
+    }
+  }, [loadingAuth])
 
   return (
     <Router>
@@ -22,6 +50,8 @@ function App() {
             Routes.map(({name, path, component, privateRoute}) => {
               if(!privateRoute){
                 return <Route key={name} exact path={path} component={component}/>
+              }else{
+                return <PrivateRoute key={name} exact path={path} component={component}/>
               }
             })
           }
@@ -32,4 +62,15 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.getAuth.isAuthenticated,
+  userAuth: state.getAuth.user,
+  loadingAuth: state.getAuth.loading,
+  tokenAuth: state.getAuth.token
+});
+
+const mapDispatchToProps = (dispach) => ({
+  loadUser: () => dispach(loadUser())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

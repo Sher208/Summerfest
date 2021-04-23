@@ -2,21 +2,21 @@ package com.summerfest.server.Model.Response;
 
 public class AuthenticationResponse {
     
-    private String jwtToken;
+    private String token;
 
-    public AuthenticationResponse(String jwtToken) {
-        this.jwtToken = jwtToken;
+    public AuthenticationResponse(String token) {
+        this.token = token;
     }
 
     public AuthenticationResponse() {
     }
 
-    public String getJwtToken() {
-        return jwtToken;
+    public String getToken() {
+        return token;
     }
 
-    public void setJwtToken(String jwtToken) {
-        this.jwtToken = jwtToken;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     

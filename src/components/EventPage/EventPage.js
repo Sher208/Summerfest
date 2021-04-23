@@ -9,7 +9,7 @@ import './EventPage.scss';
 const EventPage = ({competition,match,loadCompetitionById, error, resetCompetition}) => {
 
     const {loggedIn, setLoggedIn} = useContext(UserContext);
-    const {user, authenticated} = loggedIn;
+    const {id, email, authenticated} = loggedIn;
 
     const [errorState, setErrorState] = useState(false);
     const [name, setName] = useState('');
@@ -52,7 +52,7 @@ const EventPage = ({competition,match,loadCompetitionById, error, resetCompetiti
                 <>
                 <div className="container">
                     <h1 className="text-center mg-bottom">{competition.name}</h1>
-                    <p className="text-center lead">{competition.desc}</p>
+                    <p className="text-center lead">{competition.description}</p>
                     {
                         authenticated ? (
                             <div className="button-space">

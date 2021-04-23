@@ -4,3 +4,10 @@ export const COMPETITION = {
     RESET_COMPETITION: 'RESET_COMPETITION',
     RESET_ERROR: 'RESET_ERROR'
 }
+
+export const AUTH = {
+    USER_LOAD: 'USER_LOAD',
+    LOGIN: 'LOGIN',
+    REGISTER: 'REGISTER',
+    LOGOUT: 'LOGOUT'
+}

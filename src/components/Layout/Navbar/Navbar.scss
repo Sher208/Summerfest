@@ -37,6 +37,24 @@ $desktop: 840px;
         }
     }
 
+    a{
+        text-decoration: none;
+        color: rgba(255,255,255,1);
+
+        &:hover{
+            color: rgb(99, 99, 99);
+        }
+
+        @include desktop{
+            font-size: 1.3rem;
+        }
+    }
+
+    .user-name{
+        color: green;
+        text-align: center;
+    }
+
     .closeBtn{
         position: absolute;
         top: 1rem;
@@ -61,6 +79,7 @@ $desktop: 840px;
 }
 
 .openBtn{
+    margin-top: 0;
     transition: margin-left .5s;
     padding: 1rem;
     background-color: rgb(0, 0, 0);
@@ -68,7 +87,6 @@ $desktop: 840px;
     position: absolute;
     z-index: 9999;
     cursor: pointer;
-    
     i{
         font-size: 1.5rem;
     }
