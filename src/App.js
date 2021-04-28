@@ -5,13 +5,18 @@ import {connect} from 'react-redux';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/Routing/PrivateRoute';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import './App.scss';
 import { loadUser } from './actions/auth';
+import Cookies from 'js-cookie';
+import './App.scss';
+
 
 export const UserContext = React.createContext();
 
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
+console.log(Cookies.get('token'));
+
+if (Cookies.get('token')) {
+  console.log("moving inside function");
+  setAuthToken(Cookies.get('token'));
 }
 
 function App({isAuthenticated, userAuth, loadUser, loadingAuth, tokenAuth}) {

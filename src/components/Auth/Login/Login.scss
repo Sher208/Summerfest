@@ -1,42 +1,92 @@
+// .container-form{
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     padding-top: 4rem;
+    
+//     form{
+//         width: 60%;
+
+//         .form-group{
+//             display: flex;
+//             flex-direction: column;
+//             justify-content: center;
+//             align-items: center;
+//             padding: 3rem;
+//             .form-feild{
+//                 display: flex;
+//                 flex-direction: column;
+//                 justify-content: center;
+//                 align-items: center;
+//                 margin-bottom: 2rem;
+//                 label{
+//                     width: 100%;
+//                     text-align: left;
+//                     font-size: 1.5rem;
+//                     color: rgb(56, 56, 56);
+//                     margin-bottom: 0.5rem;
+//                 }
+
+//                 input{
+//                     border: 1px solid grey;
+//                     border-radius: 3px;
+//                     font-size: 1.5rem;
+//                     padding: 0.5rem;
+//                 }
+//             }
+//         }
+//     }
+
+    
+// }
+$desktop: 1100px;
+
+@mixin desktop{
+    @media (max-width: #{$desktop}){
+        @content;
+    }
+}
+
 .container-form{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 4rem;
+    height: 90vh;
     
-    .form{
-        width: 40%;
+    
+    form{
+        width: 30%;
+        background-color: rgb(255, 255, 255);
+        padding: 2rem;
+        border-radius: 1rem;
+        -webkit-box-shadow: 7px 7px 11px 0px rgba(50, 60, 50, 0.75);
+        -moz-box-shadow:    7px 7px 11px 0px rgba(50, 60, 50, 0.75);
+        box-shadow:         7px 7px 11px 0px rgba(50, 60, 50, 0.75);
+
+        .form-heading{
+            padding: 1rem;
+        }
 
         .form-group{
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 3rem;
-            .form-feild{
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                margin-bottom: 2rem;
-                label{
-                    width: 100%;
-                    text-align: left;
-                    font-size: 1.5rem;
-                    color: rgb(56, 56, 56);
-                    margin-bottom: 0.5rem;
-                }
+        }
 
-                input{
-                    border: 1px solid grey;
-                    border-radius: 3px;
-                    font-size: 1.5rem;
-                    padding: 0.5rem;
-                }
-            }
+        @include desktop{
+            width: 80%;
         }
     }
 
+    .Invalid{
+        box-shadow: rgba(255, 0, 0, 2) 0px 1px 0px, rgba(255, 0, 0, 0.2) 0px 8px 24px, rgba(196, 22, 22, 0.2) 0px 16px 48px;
+    }
+
+    .Valid{
+        box-shadow: rgba(0, 255, 0, 0.2) 0px 1px 0px, rgba(0, 255, 0, 0.2) 0px 8px 24px, rgba(0, 255, 0, 0.2) 0px 16px 48px;
+    }
     
 }

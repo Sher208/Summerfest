@@ -3,11 +3,12 @@ import {put, takeEvery, takeLeading, take} from 'redux-saga/effects';
 import {success, fail} from '../utils/constAppend';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
+import Cookies from 'js-cookie';
 
 function* loadUserSaga(){
 
-    if(localStorage.token){
-        setAuthToken(localStorage.token);
+    if (Cookies.get('token')) {
+        setAuthToken(Cookies.get('token'));
     }
 
     try{
@@ -30,7 +31,6 @@ export function* watchLoadUserSaga(){
 }
 
 function* loginSaga(action){
-    console.log('Loginnnnnnnnnnnnnnnnnnnnn');
     const config = {
         header:{
             'Content-Type': 'application/json'
@@ -56,7 +56,7 @@ function* loginSaga(action){
 
 
 export function* watchLoginSaga(){
-    yield takeEvery(AUTH.LOGIN, loginSaga);
+    yield takeLeading(AUTH.LOGIN, loginSaga);
     // yield takeEvery(AUTH.USER_LOAD, loadUserSaga);
 }
 
@@ -89,8 +89,7 @@ function* registerSaga(action){
 
 
 export function* watchRegisterSaga(){
-    console.log('Helooooooooooooooooo');
-    yield takeEvery(AUTH.REGISTER, registerSaga);
+    yield takeLeading(AUTH.REGISTER, registerSaga);
     // yield takeEvery(AUTH.USER_LOAD, loadUserSaga);
 }
 

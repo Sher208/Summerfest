@@ -1,10 +1,12 @@
 import {success, fail} from '../utils/constAppend';
 import { AUTH } from '../constants/constant';
+import Cookies from 'js-cookie';
 
 const initialState = {
-    token: localStorage.getItem('token'),
+    token: Cookies.get('token'),
     isAuthenticated: false,
     loading: true,
+    isRegistered: false,
     user: null,
     error: null,
 }
@@ -25,6 +27,7 @@ const authReducer = (state=initialState, action) => {
                 ...state,
                 isAuthenticated: true,
                 loading: false,
+                isRegistered: true,
                 user: payload,
                 error: null,
             }
@@ -33,36 +36,40 @@ const authReducer = (state=initialState, action) => {
                 ...state,
                 isAuthenticated: false,
                 loading: false,
+                isRegistered: true,
                 user: null,
                 error: null,
             };
         case success(AUTH.LOGIN):
-            localStorage.setItem('token', payload.token);
+            Cookies.set('token', payload.token);
             return {
                 ...state,
                 ...payload,
                 isAuthenticated: true,
+                isRegistered: true,
                 loading: false,
                 error: null,
             };
         case fail(AUTH.USER_LOAD):
         case fail(AUTH.LOGIN):
         case fail(AUTH.REGISTER):
-            localStorage.removeItem('token');
+            Cookies.remove('token');
             return {
                 ...state,
                 token: null,
                 isAuthenticated: false,
                 loading: false,
+                isRegistered: false,
                 user: null,
                 error: payload,
             };
         case success(AUTH.LOGOUT):
-            localStorage.removeItem('token');
+            Cookies.remove('token');
             return {
                 ...state,
                 token: null,
                 isAuthenticated: false,
+                isRegistered: false,
                 loading: false,
                 user: null,
                 error: null,

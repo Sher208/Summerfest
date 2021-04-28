@@ -3,71 +3,161 @@ import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
 import Button from '../../Layout/Button/Button';
 import {register} from '../../../actions/auth';
+import Modal from '../../Layout/Modal/Modal';
+import Error from '../../Layout/Error/Error';
+import InputMapper from '../../Layout/Input/InputMapper';
 import './Register.scss';
 
 
-const Register = ({register, isAuthenticated, history}) => {
-    
+const Register = ({register, isAuthenticated, isRegistered, history, error, loading}) => {
 
-    const [state, setState] = useState({
-        name: '',
-        password: '',
-        password2: '',
-        email: ''
+    const [formData, setFormData] = useState({
+        formFeild: {
+            name:{
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Name'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 6,
+                    maxLength: 30
+                },
+                valid: false,
+                touched: false,
+                error:'',
+                hideShow: false
+            },
+            password:{
+                elementType: 'input',
+                elementConfig: {
+                    type: 'password',
+                    placeholder: 'Your Password',
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 8,
+                    maxLength: 30,
+                    regrexType: 'password'
+                },
+                valid: false,
+                touched: false,
+                error:'',
+                hideShow: false
+            },
+            password2:{
+                elementType: 'input',
+                elementConfig: {
+                    type: 'password',
+                    placeholder: 'Confirm Password'
+                },
+                value: '',
+                validation: {
+                    matcher: 'password'
+                },
+                valid: false,
+                touched: false,
+                error:'',
+                hideShow: false
+            },
+            email:{
+                elementType: 'input',
+                elementConfig: {
+                    type: 'email',
+                    placeholder: 'Your Email'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 4,
+                    maxLength: 30,
+                    regrexType: 'email'
+                },
+                valid: false,
+                touched: false,
+                error:'',
+                hideShow: false
+            }
+        },
+        formValidity: false
     })
 
+    const [appError, setAppError] = useState('');
+    const [show, setShow] = useState(false);
     const [redirect, setRedirect] = useState(false);
+    const [redirectRegistered, setRedirectRegiter] = useState(false);
 
     useEffect(() => {
         setRedirect(isAuthenticated);
     }, [isAuthenticated])
 
+    useEffect(() => {
+        setRedirectRegiter(isRegistered);
+    }, [isRegistered])
 
-    const {name, password, password2, email} = state;
+    useEffect(() => {
+        if(error){
+            setAppError(error.msg);
+            setShow(true);
+        }
+    },[error, loading])
+
+
+    const closeModal = () => {
+        setShow(false)
+    }
 
     if (redirect) {
         return <Redirect to='/'></Redirect>;
     }
 
-    const onChange = (e) => {
-        setState({...state, [e.target.name]: e.target.value.trim()});
+    if (redirectRegistered) {
+        history.push('/login');
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (password !== password2) {
-            console.log('Password dont match');
-        } else {
-            register({ name, password, email });
-            history.push('/login');
+        const formDataSubmit = {};
+        const {formFeild} = {...formData}
+        for(let formElement in formFeild){
+            formDataSubmit[formElement] = formFeild[formElement].value;
         }
+        const {name, password, email} = formDataSubmit;
+        register({ name, password, email });
+            // history.push('/login');
+    }
+
+    const acceptAndErrorBacklight = () => {
+        const classArray = []
+        const {formFeild} = {...formData}
+        if(formData.formValidity){
+            classArray.push('Valid');
+        }else{
+            for(let formElement in formFeild){
+                if(formFeild[formElement].touched && !formFeild[formElement].valid){
+                    classArray.push('Invalid');
+                }
+            }
+        }
+        return classArray.join(' ');
     }
 
     
 
     return (
         <div>
+            <Modal show={show} closed={closeModal}>
+                <Error heading='Error' text={appError}/>
+            </Modal>
             <div className="container-form">
-            <form className="form" onSubmit={onSubmit}>
+            <form className={acceptAndErrorBacklight()} onSubmit={onSubmit}>
                 <h1 className="form-heading text-center">Register</h1>
                 <div className="form-group">
-                    <div className="form-feild">
-                        <label htmlFor="name">Name</label>
-                        <input type="text" placeholder="Enter name" name="name" id="name" value={name} onChange={onChange} required />
-                    </div>
-                    <div className="form-feild">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" placeholder="Enter password" name="password" id="password" value={password} onChange={onChange} required />
-                    </div>
-                    <div className="form-feild">
-                        <label htmlFor="password2">Confirm Password</label>
-                        <input type="password" placeholder="Confirm password" name="password2" id="password2" value={password2} onChange={onChange} required />
-                    </div>
-                    <div className="form-feild">
-                        <label htmlFor="password">Email</label>
-                        <input type="email" placeholder="Enter email" name="email" id="email" value={email} onChange={onChange}/>
-                    </div>
-                    <Button type="submit">Register</Button>
+                    <InputMapper formData={formData} setFormData={setFormData}/>
+                    <Button type="submit" disabled={!formData.formValidity}>Register</Button>
                 </div>
             </form>
             </div>
@@ -76,7 +166,10 @@ const Register = ({register, isAuthenticated, history}) => {
 }
 
 const mapStateToProps = (state) => ({
-    isAuthenticated : state.getAuth.isAuthenticated
+    isAuthenticated : state.getAuth.isAuthenticated,
+    error: state.getAuth.error,
+    loading: state.getAuth.loading,
+    isRegistered: state.getAuth.isRegistered
 })
 
 const mapDispatchToProps = dispatch => ({

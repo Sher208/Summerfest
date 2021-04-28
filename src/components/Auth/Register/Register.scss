@@ -1,42 +1,48 @@
+$desktop: 1100px;
+
+@mixin desktop{
+    @media (max-width: #{$desktop}){
+        @content;
+    }
+}
+
 .container-form{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 4rem;
+    height: 90vh;
     
-    .form{
-        width: 40%;
+    
+    form{
+        width: 30%;
+        background-color: rgb(255, 254, 254);
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+
+        .form-heading{
+            padding: 1rem;
+        }
 
         .form-group{
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 3rem;
-            .form-feild{
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                margin-bottom: 2rem;
-                label{
-                    width: 100%;
-                    text-align: left;
-                    font-size: 1.5rem;
-                    color: rgb(56, 56, 56);
-                    margin-bottom: 0.5rem;
-                }
+        }
 
-                input{
-                    border: 1px solid grey;
-                    border-radius: 3px;
-                    font-size: 1.5rem;
-                    padding: 0.5rem;
-                }
-            }
+        @include desktop{
+            width: 70%;
         }
     }
 
+    .Invalid{
+        box-shadow: rgba(255, 0, 0, 2) 0px 1px 0px, rgba(255, 0, 0, 0.2) 0px 8px 24px, rgba(196, 22, 22, 0.2) 0px 16px 48px;
+    }
+
+    .Valid{
+        box-shadow: rgba(0, 255, 0, 0.2) 0px 1px 0px, rgba(0, 255, 0, 0.2) 0px 8px 24px, rgba(0, 255, 0, 0.2) 0px 16px 48px;
+    }
     
 }

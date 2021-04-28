@@ -1,0 +1,83 @@
+$desktop: 840px;
+
+@mixin desktop{
+    @media (max-width: #{$desktop}){
+        @content;
+    }
+}
+
+
+.Input{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+
+    .ps_wrap{
+        position: relative;
+    
+        .InputElement{
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid black;
+            background-color: rgb(255, 255, 255);
+            padding: 6px 10px;
+            display: block;
+            font-size: 1.5rem;
+    
+    
+            &:focus{
+                outline: none;
+            }
+        }
+    
+        i{
+            position: absolute;
+            top: 30%;
+            right: 2%;
+
+            &:hover{
+                color: gray;
+            }
+        }
+    }
+
+    .Label{
+        font-weight: bold;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .InputElement{
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid black;
+        background-color: rgb(255, 255, 255);
+        padding: 6px 10px;
+        display: block;
+        font-size: 1.5rem;
+
+
+        &:focus{
+            outline: none;
+        }
+    }
+
+    
+
+    .Invalid{
+        border-bottom: 1px solid red;
+        // background-color: rgb(255, 217, 213);
+
+        &:focus{
+            outline: none;
+            // background-color: rgb(255, 221, 221);
+        }
+    }
+
+    .ValidationError {
+        color: rgb(245, 87, 87);
+        margin: 5px 0;
+    } 
+}
+
+

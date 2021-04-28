@@ -6,6 +6,7 @@ import com.summerfest.server.Config.JwtUtils;
 import com.summerfest.server.ExceptionHandler.InvalidCredentialException;
 import com.summerfest.server.ExceptionHandler.ResouceAlreadyExistsException;
 import com.summerfest.server.Model.User;
+import com.summerfest.server.Model.Request.AuthenticationRegisterRequest;
 import com.summerfest.server.Model.Request.AuthenticationRequest;
 import com.summerfest.server.Model.Response.AuthenticationResponse;
 import com.summerfest.server.Respository.UserRepository;
@@ -38,14 +39,14 @@ public class UserService {
     @Autowired
     private JwtUtils jwtUtils;
 
-    public ResponseEntity<Object> addUser(User user) {
-        if(userRepository.checkNameExists(user.getName())){
+    public ResponseEntity<Object> addUser(AuthenticationRegisterRequest au) {
+        if(userRepository.checkNameExists(au.getName())){
             throw new ResouceAlreadyExistsException("Username Already Taken");
         }
         User newUser = new User();
-		newUser.setName(user.getName());
-		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        newUser.setEmail(user.getEmail());
+		newUser.setName(au.getName());
+		newUser.setPassword(bcryptEncoder.encode(au.getPassword()));
+        newUser.setEmail(au.getEmail());
         userRepository.saveUser(newUser);
 		return new ResponseEntity<Object>(newUser, HttpStatus.OK);
 	}

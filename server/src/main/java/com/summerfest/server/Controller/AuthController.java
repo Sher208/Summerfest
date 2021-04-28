@@ -3,6 +3,7 @@ package com.summerfest.server.Controller;
 import javax.validation.Valid;
 
 import com.summerfest.server.Model.User;
+import com.summerfest.server.Model.Request.AuthenticationRegisterRequest;
 import com.summerfest.server.Model.Request.AuthenticationRequest;
 import com.summerfest.server.Service.UserService;
 
@@ -21,8 +22,8 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<Object> register(@Valid @RequestBody User user){
-        return userService.addUser(user);
+    public ResponseEntity<Object> register(@Valid @RequestBody AuthenticationRegisterRequest ar){
+        return userService.addUser(ar);
     }
 
     @PostMapping("/login")
